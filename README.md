@@ -28,5 +28,9 @@ I did it attentively, so I hope you can enjoy it. The use of the interface is as
 
 * Please do your homework independently, so you can learn for reference, but it's better not to plagiarize
 
-### 3. Joke
+### 3. Encoding format
+
+.C Text is encoded with **UTF-8**, But the .text Text is encoded with **GBK**. Please forgive me.
+
+### 4. Joke
  I'm a freshman in the computer science and engineering. Follow me~~~!

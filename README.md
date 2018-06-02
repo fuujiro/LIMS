@@ -29,4 +29,4 @@ I did it attentively, so I hope you can enjoy it. The use of the interface is as
 * Please do your homework independently, so you can learn for reference, but it's better not to plagiarize
 
 ### 3. Joke
- I'm a freshman in the computer science and engineering. If you will, you can follow me and then I know you, my old friend.
+ I'm a freshman in the computer science and engineering. Follow me~~~!

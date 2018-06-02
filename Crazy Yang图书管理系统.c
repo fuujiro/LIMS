@@ -1,61 +1,61 @@
-/* Code??Crazy Yang
-   Debug??Crazy Yang
-   ??ƺͺ?ڿ?????Crazy Yang
-   ???д??Crazy Yang
-   ֧?֣???????????????ҵѧԺ-??????ʵ????*/
+/* Code：Crazy Yang
+   Debug：Crazy Yang
+   设计和后期开发：Crazy Yang
+   手册编写：Crazy Yang
+   支持：大连理工大学创新创业学院-软件算法实践班 */
                              
-							   /* ?????ǰ? */
+							   /* 开发者前言 */
 
-/* ????????ͳV1.0??????????????????????????-????Ϣ?ഴ?ʵ????紴1601-???????,???????,
-   ??????λ????ɾ,??????????һ???????,лл???!! */
-/* ????????˴????????е?ug???rror,???ϵ?,??????engziyang97@163.com */
-/* ʹ?ָ?: ?????Ҳ??ǰ?,????˳????????????????Լ??Ҫ,?????ļ???з???,???????С?.
-   ???ͳ?????2?????,??????????????ֱ?Ӧ????ͼ??????,ʹ???????鹦?.???
-   ???????????Ҫ?????fenrari1997 ???????޸?/
+/* 该图书管理系统V1.0是大连理工大学电子信息与电气工程学部-电气信息类创新实验班 电创1601-冯子扬原创,可以拿走源码,
+   但至少这段话不能删,能署下我的名字尊重一下我的原创,谢谢理解!!! */
+/* 如果你发现了代码运行过程中的bug或者error,请联系我,我的邮箱是fengziyang97@163.com */
+/* 使用指南: 开发者也就是俺,补充了程序猿手册和用户手册,根据自己需要,可自行在文件夹中翻看,这里只做个小述.
+   该系统主体分为2个方面,用户界面和管理员界面,分别对应开发图书管理功能,使用者可自行体验功能.另外,
+   进入管理员界面,需要的密码是 fenrari1997 ，可以自行修改*/
 
-                               /* ע??? */
-/* ??ʹ?֮ǰ??һ?,?ΪV1.0?汾??????ִ?????????Щ??̫?Ϥ??˻?????,????*/
-/* 1.?????????????ʱ??ʱ???????ģ?ϵͳ??״̬,?????"????????....",
-     ??Ҫ???,???ȴ??????Ļ?ȥ??ٽ????,??????????*/
-/* 2.?????Ϊ?????????,ʹ?getch()һ?಻??Եĺ??,???ر???????س???,
-     ??ǿ?????,?????????û??س??? */
-/* 3.V1.0ϵͳ?Ŀ???Դ?һǧ??У? */
+                               /* 注意事项 */
+/* 请在使用之前看一下,因为V1.0版本做的实在仓促,又开发了一些不太熟悉的人机交互,望理解 */
+/* 1.由于本开发者开发时引入时钟库头文件模拟系统载入状态,所以遇到"输入错误,请输入....",
+     不要着急,耐心等待字条从屏幕隐去后再进行输入,以免反复报错 */
+/* 2.开发者为体现人机交互,使用getch()一类不回显的函数,来回避输入完成后的回车键,
+     以增强用户体验,所以请大家不必敲击回车键 */
+/* 3.V1.0系统的开发源码一千多行； */
 
-/*ͷ????*/
+/*头文件区*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
-//#include <conio.h>
+#include <conio.h>
 
-/*?궨??*/ 
-#define  ADMIN_password "fenrari1997" /*?????????*/
+/*宏定义区*/ 
+#define  ADMIN_password "fenrari1997" /*管理员登录密码*/
 
-/*?ṹ????*/
-typedef struct bookinfo/*ϵͳͼ??Ϣ */ 
+/*结构体声明区*/
+typedef struct bookinfo/*系统图书信息 */ 
 {
-    char number[15];/*ͼ???*/
-    char name[30];/*ͼ????/
-    char author[20];/*??*/
-    char press[30];/*?????/ 
-    char category[20]; /*??*/ 
-    float price;/*????/ 
-    int  quantity;/*?ݲ??*/
- 	int  time;/*????*/ 
+    char number[15];/*图书编号*/
+    char name[30];/*图书名称*/
+    char author[20];/*作者*/
+    char press[30];/*出版社*/ 
+    char category[20]; /*类别*/ 
+    float price;/*单价*/ 
+    int  quantity;/*馆藏量*/
+ 	int  time;/*借书次数*/ 
 }BOOKINFO;
 
-typedef struct bookgrasp/*???????鼮?Ϣ*/ 
+typedef struct bookgrasp/*会员借出的书籍信息*/ 
 {
-	char number[15];/*ͼ???*/
-    char name[30];/*ͼ????/
-    char author[20];/*??*/
-    char press[30];/*?????/ 
-    char category[20]; /*??*/ 
-    float price;/*????/ 
- 	char account[30];/*????D*/
+	char number[15];/*图书编号*/
+    char name[30];/*图书名称*/
+    char author[20];/*作者*/
+    char press[30];/*出版社*/ 
+    char category[20]; /*类别*/ 
+    float price;/*单价*/ 
+ 	char account[30];/*借书者ID*/
 }BOOKGRASP;
 
-typedef struct member/*???????Ϣ */ 
+typedef struct member/*会员个人信息 */ 
 { 
 	char name[30];
 	char ID[20];
@@ -64,58 +64,58 @@ typedef struct member/*???????Ϣ */
 	char password_key[30];
 }MEMBER; 
 
-/*?˵?????*/
+/*菜单函数区*/
 void menu1();
 void menu2();
 void menu3();
 void AboutMe();
 
-/*???ߺ???*/
-int compare_password(char password[20]);/*???ȶԺ?? */  
-void clock_delay(); /*ʱ???????*/ 
-void password_circle();/*?????????*/
-void find_account_circle();/*???ʻ????????*/ 
+/*工具函数区*/
+int compare_password(char password[20]);/*密码比对函数 */  
+void clock_delay(); /*时间延时函数*/ 
+void password_circle();/*密码框装饰函数*/
+void find_account_circle();/*找回帐户弹出框函数*/ 
 
-/*????Ϣϵͳ?㼶????*/
-int user_account(char account[20]);/*???????Ϣ*/ 
-void member_log_up();/*???ע?ắ?*/
-int member_log_in(char account[20]);/*?????????*/ 
-void ADMIN_watch_member();/*?鿴????Ϣ???*/
-void display_memberbook();/*?鿴??ͼ?????????*/
-int check_repeat_ID(char id_account[20]);/*????????????*/ 
-void find_account();/*?????غ??*/ 
+/*会员信息系统层级函数区*/
+int user_account(char account[20]);/*个人账户信息*/ 
+void member_log_up();/*会员注册函数*/
+int member_log_in(char account[20]);/*会员登录函数*/ 
+void ADMIN_watch_member();/*查看会员信息函数*/
+void display_memberbook();/*查看所有图书借阅信息函数*/
+int check_repeat_ID(char id_account[20]);/*检查账户重复性函数*/ 
+void find_account();/*账户找回函数*/ 
 
-/*ͼ??Ϣϵͳ?㼶????*/
-void add_book();/*??????????Ϣ*/
-void delete_book();/*????????ƶ????Ϣ???ɾ??*/
-void modify_book();/*??????Ϣ*/
-void display_book();/*?ʾȫ??ͼ??Ϣ*/
-void search_book();/*???????????ͼ?????*/
-void borrow_book(char account[20]);/*???/
-void return_book(char account[20]);/*???*/
-void display_price_lower();/*???ݼ۸?г?ͼ??Ϣ*/
-void dispaly_popular();/*ͼ????ӭ???а?/
-int check_repeat_book(char number[30]);/*???鼮??*/
+/*图书信息系统层级函数区*/
+void add_book();/*输入新进的图书信息*/
+void delete_book();/*根据图书名称对图书信息进行删除*/
+void modify_book();/*修改图书信息*/
+void display_book();/*显示全部图书信息*/
+void search_book();/*根据图书名称显示图书的信息*/
+void borrow_book(char account[20]);/*借书*/
+void return_book(char account[20]);/*还书*/
+void display_price_lower();/*根据价格列出图书信息*/
+void dispaly_popular();/*图书受欢迎度排行榜*/
+int check_repeat_book(char number[30]);/*查重书籍编号*/
 
 int main()
 {
-	int flag1=1,flag2=1,flag3=1;/* flag???????,flagΪ 1 ʱΪ???Ϊ 0 ʱΪ??*/
+	int flag1=1,flag2=1,flag3=1;/* flag是判断条件,flag为 1 时为真，为 0 时为假 */
 	char choice1,choice2,choice3;
 	FILE *p1,*p2,*p3;
 	
-	system("title ?紴1601-Fenrari");
+	system("title 电创1601-Fenrari");
    
-    if((p1=fopen("library.txt","r"))==NULL)/*p1?ͼ?????ͳ??鼮?Ϣ???ָ?*/ 
+    if((p1=fopen("library.txt","r"))==NULL)/*p1是图书管理系统的书籍信息文件指针*/ 
     {
       	p1=fopen("library.txt","w");
       	fclose(p1);
     }
-	if((p2=fopen("infomember.txt","r"))==NULL)/*p2?ͼ?????ͳ?Ļ??????Ϣ???ָ?*/ 
+	if((p2=fopen("infomember.txt","r"))==NULL)/*p2是图书管理系统的会员个人信息文件指针*/ 
 	{
 		p2=fopen("infomember.txt","w");
 		fclose(p2);
 	}
-	if( (p3=fopen("memberbook.txt","r"))==NULL)/*p3?ͼ?????ͳ?Ļ??????Ϣ???ָ?*/ 
+	if( (p3=fopen("memberbook.txt","r"))==NULL)/*p3是图书管理系统的会员书籍信息文件指针*/ 
 	{
 		p3=fopen("memberbook.txt","w");
 		fclose(p3);
@@ -124,17 +124,17 @@ int main()
 	while(flag1)
 	{
 		system("cls");
-		menu1();/*??????˵? */ 
+		menu1();/*调出主菜单 */ 
 
   		printf("\n");
-  		printf("??ѡ?(1-5):");
+  		printf("请您选择(1-5):");
   		choice1=getch();
   		while(choice1!='1'&&choice1!='2'&&choice1!='3'&&choice1!='4'&&choice1!='5')
   			choice1=getch();
   		printf("%c",choice1);
   		fflush(stdin);
 
-  		if(choice1=='1')/*??????*/ 
+  		if(choice1=='1')/*会员登录*/ 
 		{
 			int flag=0;
 			char account1[20],account_choice;
@@ -142,14 +142,14 @@ int main()
 			password_circle();
 			fflush(stdin);
 			gets(account1);
-			flag=member_log_in(account1);/*?????????*/ 
+			flag=member_log_in(account1);/*账户登录函数*/ 
 			if(flag==2)
 			{
 				system("cls");
 				password_circle();
 				fflush(stdin);
 				gets(account1);
-				flag=member_log_in(account1);/*?????????*/	
+				flag=member_log_in(account1);/*账户登录函数*/	
 			} 
 			if(flag==1)
 			{
@@ -157,7 +157,7 @@ int main()
     		system("cls");
 			menu2();
     		printf("\n");
-    		printf("??ѡ?(1-8):");
+    		printf("请您选择(1-8):");
     		choice2=getch();
     		while(choice2!='1'&&choice2!='2'&&choice2!='3'&&choice2!='4'&&choice2!='5'&&choice2!='6'&&choice2!='7'&&choice2!='8')
   				choice2=getch();
@@ -173,21 +173,21 @@ int main()
     			case '6':dispaly_popular();break; 
     			case '7':if(user_account(account1))
     						{
-								printf("\n\n\t\t\t????Ϣ?ı䣬??????...");
+								printf("\n\n\t\t\t登录信息改变，请重新登录...");
        		       	  	 		clock_delay();
        		       	  	 		flag3=0;
 							}
 						 break;
     			case '8':flag2=0;
-					     printf("\n\n\t\t\t???????????..");
+					     printf("\n\n\t\t\t正在退出用户界面...");
        		       	  	 clock_delay();
 						 break;
-				default:break;/*?Ȼѹ????????default?????????????????©??¼ӵ?ase??hile??????????/
+				default:break;/*虽然压根不会读到default情况，但是怕后来开发者漏掉新加的case的while处理，所以加上*/
     				}
 				}
 			}else{
 				system("cls"); 
-				find_account_circle();/*װ????????*/ 
+				find_account_circle();/*装饰弹出框函数*/ 
 				fflush(stdin);
 				account_choice=getch();
 				while(account_choice!='Y'&&account_choice!='y'&&account_choice!='N'&&account_choice!='n')
@@ -195,30 +195,30 @@ int main()
       			printf("%c",account_choice);
 				printf("\n");
 				if(account_choice=='Y'||account_choice=='y')
-					find_account();/*?????غ??*/ 	
+					find_account();/*账户找回函数*/ 	
 			}
 			flag2=1,flag3=1;
 		}
 	
-		else if(choice1=='2')/*???ע??/ 
+		else if(choice1=='2')/*会员注册*/ 
 		{
 			system("cls");
-			printf("\n\n\n\t\t\t????????ע???...");
+			printf("\n\n\n\t\t\t正在进入用户注册界面...");
 			clock_delay();
      	   member_log_up();  
 		}
 	 
-		else if(choice1=='3')/*???????*/ 
+		else if(choice1=='3')/*管理员登录*/ 
 		{
 			if(compare_password(ADMIN_password))
 			{
-				printf("\n\n\t\t\t\t  --?????ȷ!--\n\n\t\t\t\t==????????????=\n");
+				printf("\n\n\t\t\t\t  --输入密码正确!--\n\n\t\t\t\t==正在进入管理员界面==\n");
      	  	 	clock_delay(); 
 				while(flag2){
 				system("cls");
 				menu3();
 				printf("\n");
-				printf("??ѡ?(1-8):");
+				printf("请您选择(1-8):");
 				choice3=getch();
 				while(choice3!='1'&&choice3!='2'&&choice3!='3'&&choice3!='4'&&choice3!='5'&&choice3!='6'&&choice3!='7'&&choice3!='8')
   					choice3=getch();
@@ -234,33 +234,33 @@ int main()
    					case '6':ADMIN_watch_member();break; 
    					case '7':display_memberbook();break;
    					case '8':flag2=0;
-					     	 printf("\n\n\t\t\t????????????..");
+					     	 printf("\n\n\t\t\t正在退出管理员界面...");
          	     	  		 clock_delay();
 							 break;
-   					default:break;/*?Ȼѹ????????default?????????????????©??¼ӵ?ase??hile??????????/
+   					default:break;/*虽然压根不会读到default情况，但是怕后来开发者漏掉新加的case的while处理，所以加上*/
    					}
   				}
   			} 
   			else{
-  				printf("\n\n\t\t\t\t  --???????--\n");
+  				printf("\n\n\t\t\t\t  --输入密码错误!--\n");
      		   	clock_delay();
 			}
 			flag2=1; 
  		}
  	
- 		else if(choice1=='4')/*???oder*/ 
+ 		else if(choice1=='4')/*关于coder*/ 
  		{
 			AboutMe();
 		}
 	
- 		else if(choice1=='5')/*???ϵͳ*/
+ 		else if(choice1=='5')/*退出系统*/
  		{
  			flag1=0;
 		}
 	}
 	fflush(stdin);
 	system("cls");
-	printf("??????ȫ???ϵͳ!(???????رս??\n\n\t??ӭ???ٴ???!\n\n\t?Զ?????enrari!\n\n");
+	printf("你已经安全退出系统!(按任意键关闭界面)\n\n\t欢迎您的再次使用!\n\n\t永远爱你的Fenrari!\n\n");
 	getch();
 	return 0;
 }
@@ -272,15 +272,15 @@ void menu1()
 	printf("\t\t\t *=======================================*\n");
 	printf("\t\t\t|  * - * - * Crazy Yang - LIMS * - * - *  |\n");
 	printf("\t\t\t| *                                     * |\n");
-	printf("\t\t\t| |  [1]   ??????                     | |\n");
+	printf("\t\t\t| |  [1]   会员登录                     | |\n");
 	printf("\t\t\t| *                                     * |\n");
-	printf("\t\t\t| |  [2]   ???ע??                    | |\n");
+	printf("\t\t\t| |  [2]   会员注册                     | |\n");
 	printf("\t\t\t| *                                     * |\n");
-	printf("\t\t\t| |  [3]   ???????                   | |\n");
+	printf("\t\t\t| |  [3]   管理员登录                   | |\n");
 	printf("\t\t\t| *                                     * |\n");
-	printf("\t\t\t| |  [4]   ????°汾                 | |\n");
+	printf("\t\t\t| |  [4]   关于最新版本                 | |\n");
 	printf("\t\t\t| *                                     * |\n");
-	printf("\t\t\t| |  [5]   ???ϵͳ                     | |\n");
+	printf("\t\t\t| |  [5]   退出系统                     | |\n");
 	printf("\t\t\t| *                                     * |\n");
 	printf("\t\t\t|  * - * - * - * - * - * - * - * - * - *  |\n");
 	printf("\t\t\t *=======================================*\n");
@@ -290,16 +290,16 @@ void menu2()
 	system("color BC");
 	printf("\n\n");
 	printf("\t\t\t *=====================================*\n");
-    printf("\t\t\t| | * - * - * -??Ա-???- * - * - * | |\n");
+    printf("\t\t\t| | * - * - * -会-员-界-面- * - * - * | |\n");
     printf("\t\t\t| *                                   * |\n");
-    printf("\t\t\t| |  [1]   ??????Ϣ               | |\n");
-    printf("\t\t\t| *  [2]   ?????                   * |\n");
-    printf("\t\t\t| |  [3]   ?黹ͼ?                   | |\n");
-    printf("\t\t\t| *  [4]   ?????ͼ??Ϣ           * |\n");
-    printf("\t\t\t| |  [5]   ?????????               | |\n");
-    printf("\t\t\t| *  [6]   ͼ????ӭ???а?        * |\n");
-    printf("\t\t\t| |  [7]   ???˻??Ϣ               | |\n");
-    printf("\t\t\t| *  [8]   ?????????              * |\n");
+    printf("\t\t\t| |  [1]   查找图书信息               | |\n");
+    printf("\t\t\t| *  [2]   借阅图书                   * |\n");
+    printf("\t\t\t| |  [3]   归还图书                   | |\n");
+    printf("\t\t\t| *  [4]   书库所有图书信息           * |\n");
+    printf("\t\t\t| |  [5]   价位书籍推荐               | |\n");
+    printf("\t\t\t| *  [6]   图书受欢迎度排行榜         * |\n");
+    printf("\t\t\t| |  [7]   您的账户信息               | |\n");
+    printf("\t\t\t| *  [8]   退出用户界面               * |\n");
     printf("\t\t\t| |                                   | |\n");
     printf("\t\t\t| * - * - * - * - * - * - * - * - * - * |\n");
 	printf("\t\t\t *=====================================*\n");
@@ -309,16 +309,16 @@ void menu3()
 	system("color 1D");
 	printf("\n\n");
 	printf("\t\t\t *======================================*\n");
-	printf("\t\t\t| | * - * - * ????Ա-??? * - * - * | |\n");
+	printf("\t\t\t| | * - * - * 管-理-员-界-面 * - * - * | |\n");
 	printf("\t\t\t| *                                    * |\n");
-	printf("\t\t\t| |  [1]   ?????                    | |\n");
-	printf("\t\t\t| *  [2]   ɾ??ͼ?                    * |\n");
-	printf("\t\t\t| |  [3]   ??????Ϣ                | |\n");
-	printf("\t\t\t| *  [4]   ??????Ϣ                * |\n");
-	printf("\t\t\t| |  [5]   ?ʾȫ??ͼ??Ϣ            | |\n");
-	printf("\t\t\t| *  [6]   ?ʾ??????Ϣ            * |\n");
-	printf("\t\t\t| |  [7]   ?ʾ???????            | |\n");
-	printf("\t\t\t| *  [8]   ??????????             * |\n");
+	printf("\t\t\t| |  [1]   添加图书                    | |\n");
+	printf("\t\t\t| *  [2]   删减图书                    * |\n");
+	printf("\t\t\t| |  [3]   修改图书信息                | |\n");
+	printf("\t\t\t| *  [4]   查找图书信息                * |\n");
+	printf("\t\t\t| |  [5]   显示全部图书信息            | |\n");
+	printf("\t\t\t| *  [6]   显示所有会员信息            * |\n");
+	printf("\t\t\t| |  [7]   显示所有借阅信息            | |\n");
+	printf("\t\t\t| *  [8]   退出管理员界面              * |\n");
 	printf("\t\t\t| |                                    | |\n");
 	printf("\t\t\t| * - * - * - * - * -- * - * - * - * - * |\n");
 	printf("\t\t\t *======================================*\n");
@@ -328,18 +328,18 @@ void AboutMe()
 	system("cls");
 	printf("Code:  Fenrari Yang\n");
 	printf("Debug: Fenrari Yang\n");
-	printf("\n\n\t\tʹ??????鿴?????????????");
+	printf("\n\n\t\t使用帮助请查看用户手册或程序猿手册!");
 	printf("\n\n");
  	printf(" ^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^**^*^*^*^*^*^*^*^*^\n");
-	printf(" | Fenrari?????????汾?????Ц??????????ɵɵ?ĵط????ug! |\n");
-	printf(" * ??????????һ??Ҫ??ϵ?Ŷ!??????engziyang97@163.com,???!!!   *\n");
+	printf(" | Fenrari做的图书馆这个版本让大家见笑了,里面可能会有些傻傻的地方或者bug! |\n");
+	printf(" * 如果大家发现了,一定要联系我哦!我的邮箱是fengziyang97@163.com,笔芯!!!   *\n");
 	printf(" |                                ^_^                                     |\n");
 	printf(" ^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^**^*^*^*^*^*^*^*^*^\n");
-	printf("\n\n?????????.");
+	printf("\n\n按任意键退出.");
 	getch();
 }
 
-void add_book() /*??????????Ϣ*/
+void add_book() /*输入新进的图书信息*/
 {
     char choice;
     FILE *p1;
@@ -350,40 +350,40 @@ void add_book() /*??????????Ϣ*/
       	{
       	flag=0; 
       	fflush(stdin);
-		printf("???ͼ???:");
+		printf("请输入图书编号:");
 		gets(newbook.number);
 		
 		if(check_repeat_book(newbook.number))
 		{	
-			printf("?????????ʹ???");
-			printf("\n????????ע??n\n");
+			printf("该图书编号已被使用！");
+			printf("\n按任意键重新注册\n\n");
 			getch();
 			flag=1; 
 		}
 		else{
 			fflush(stdin); 
-			printf("?????:");
+			printf("请输入书名:");
 			gets(newbook.name);
 		
-			printf("?????:");
+			printf("请输入作者:");
 			gets(newbook.author);
 		
-			printf("????????");
+			printf("请输入出版社:");
 			gets(newbook.press);
 			
-			printf("?????(?ѧ/???/???/??ѧ/??:");
+			printf("请输入类别(文学/科学/理学/工学/等):");
 			gets(newbook.category);
 		
-			printf("????۸?");
+			printf("请输入价格:");
 			scanf("%f",&newbook.price);
 		
-			printf("????ݲ??:");
+			printf("请输入馆藏量:");
 			scanf("%d",&newbook.quantity);
 		
-			printf("?????Ĵ??(????0):");
+			printf("请输入借阅次数(新书输入0):");
 			scanf("%d",&newbook.time); 
 		fflush(stdin);
-      	printf("??񱣴???Ŀ(y/n):");
+      	printf("是否保存该条书目(y/n):");
       	choice=getch();
 		while(choice!='Y'&&choice!='y'&&choice!='N'&&choice!='n')
       	    choice=getch();
@@ -395,13 +395,13 @@ void add_book() /*??????????Ϣ*/
 					newbook.number,newbook.name,newbook.author,newbook.press,
 					newbook.category,newbook.price,newbook.quantity,newbook.time);
 	        fclose(p1);
-        	printf("\n????Ŀ???ӵ?library.txt????!\n");
+        	printf("\n该条书目已添加到library.txt文件中!\n");
        	}
         else
         {
-       		printf("\n????Ŀδ????\n");
+       		printf("\n本条书目未保存!\n");
         }
-      	printf("\n\n?????????(y/n):");
+      	printf("\n\n是否继续添加书目(y/n):");
         choice=getch();
         while(choice!='Y'&&choice!='y'&&choice!='N'&&choice!='n')
       	    choice=getch();
@@ -415,7 +415,7 @@ void add_book() /*??????????Ϣ*/
       }
 }
 
-void display_book()/*?ʾȫ??ͼ??Ϣ*/
+void display_book()/*显示全部图书信息*/
 {
     FILE *p1;
     int n;
@@ -433,16 +433,16 @@ void display_book()/*?ʾȫ??ͼ??Ϣ*/
       	booknumber++;
     }
     fclose(p1);
-    printf("??ǰͼ?????dĿ???\n\n",booknumber);
+    printf("当前图书馆内有%d目书籍\n\n",booknumber);
     if(bookinfo[0].quantity==0)
     {
-      	printf("\nû???????Ϣ!\n\n");
+      	printf("\n没有任何图书信息!\n\n");
     }
     else
     {
       	n=0;
-      	printf("|---------------------------------ͼ??Ϣ---------------------------------|\n");
-      	printf("|??  ??        ??      ?????         ??    ????   ?ݲ??  ????|\n");
+      	printf("|---------------------------------图书信息---------------------------------|\n");
+      	printf("|编号  书名        作者      出版社          类别    单价    馆藏量  借阅数|\n");
       	printf("|                                                                          |\n");
       	while(n<booknumber)
         {
@@ -451,19 +451,19 @@ void display_book()/*?ʾȫ??ͼ??Ϣ*/
         	n++;
         }
       }
-    printf("\n\n???????????????˵?!\n");
+    printf("\n\n按任意键返回上一级菜单!\n");
    	getch();
 }
 
-void search_book()/*???????????ͼ?????*/
+void search_book()/*根据图书名称显示图书的信息*/
 {
 	int flag=1,flag1=1;
 	char select;
-    char name_compare[30]="";/*name_compare?????Ҫ???????*/
-   	char number_compare[30]=""; /*number_compare?????Ҫ?????鼮??*/
-   	char author_compare[30]="";/*author_compare?????Ҫ?????????*/
-	char search[30]="";/*search??ȶ???,???Ҫ??ҵ????????ȶ???*/
-	char compare[30]="";/*compare??ȶ???,?????е????????ȶ???*/
+    char name_compare[30]="";/*name_compare用来存放要查询的书名*/
+   	char number_compare[30]=""; /*number_compare用来存放要查询的书籍编号*/
+   	char author_compare[30]="";/*author_compare用来存放要查询的作者姓名*/
+	char search[30]="";/*search是比对数组,将需要查找的数组读进比对数组*/
+	char compare[30]="";/*compare是比对数组,将书库中的数组读进比对数组*/
     int n=0;
     FILE *p1;
     char choice;
@@ -490,17 +490,17 @@ void search_book()/*???????????ͼ?????*/
 		{
 			system("cls");
 			fflush(stdin);
-			printf("??ͨ??\n\n1.<-ͼ???->\n\n2.<-??->\n\n3.<-???->\n\n????ʽ???ͼ?:");
+			printf("您想通过\n\n1.<-图书编号->\n\n2.<-书名->\n\n3.<-作者名->\n\n哪种方式查询图书:");
     		select=getch();
     		printf("%c",select);
-			printf("\n\n?????????:");		
+			printf("\n\n请您输入查找信息:");		
 			switch(select)
 			{
 				case '1':gets(number_compare);strcpy(search,number_compare);flag1=0;break;
 				case '2':gets(name_compare);strcpy(search,name_compare);flag1=0;break;
 				case '3':gets(author_compare);strcpy(search,author_compare);flag1=0;break;
 				default :
-					printf("\n??Ҫ???˵?֮?????~???????????");
+					printf("\n不要输入菜单之外的数字~按任意键继续！");
 					fflush(stdin);
             	    getch(); 
 			}
@@ -509,8 +509,8 @@ void search_book()/*???????????ͼ?????*/
 	flag1=1;
     if(bookinfo[0].quantity==0)
     {
-      	printf("???????????!\n\n");
-      	printf("???????ص???˵?!\n\n");
+      	printf("书库中没有任何信息!\n\n");
+      	printf("按任意键回到主菜单!\n\n");
       	getch();
       	break;
     }
@@ -526,8 +526,8 @@ void search_book()/*???????????ͼ?????*/
 			}
         	if(strcmp(compare,search)==0)
           	{
-         		printf("|---------------------------------ͼ??Ϣ---------------------------------|\n");
-      			printf("|??  ??        ??      ?????         ??    ????   ?ݲ??  ????|\n");
+         		printf("|---------------------------------图书信息---------------------------------|\n");
+      			printf("|编号  书名        作者      出版社          类别    单价    馆藏量  借阅数|\n");
       			printf("|                                                                          |\n");
     			printf("|%-6s%-12s%-10s%-16s%-8s%-8.1f%-8d%-6d|\n",bookinfo[n].number,bookinfo[n].name,bookinfo[n].author,
                         bookinfo[n].press,bookinfo[n].category,bookinfo[n].price,bookinfo[n].quantity,bookinfo[n].time);
@@ -535,9 +535,9 @@ void search_book()/*???????????ͼ?????*/
 			}
        	}
    			if(n>=booknumber)
-       		printf("\nû???ҷ????Ҫ???鼮!\n");
+       		printf("\n没有查找符合您要求的书籍!\n");
        		
-      		printf("\n\n???????(y/n):");
+      		printf("\n\n是否继续查询(y/n):");
       		choice=getch();
      		while(choice!='Y'&&choice!='y'&&choice!='N'&&choice!='n')
       	    	choice=getch();
@@ -552,9 +552,9 @@ void search_book()/*???????????ͼ?????*/
 	}
 }
 
-void delete_book()/*????????ƶ????Ϣ???ɾ??*/
+void delete_book()/*根据图书名称对图书信息进行删除*/
 {
-    char search[20]="";/*search?????Ҫɾ??????*/
+    char search[20]="";/*search用来存放要删除的书名*/
     int n,i;
     FILE *p1;
     char choice;
@@ -565,7 +565,7 @@ void delete_book()/*????????ƶ????Ϣ???ɾ??*/
     while(1)
     {
     	fflush(stdin);
-        printf("??Ҫɾ????鱾???");
+        printf("输入要删除的书本名称:");
       	gets(search);
      	p1=fopen("library.txt","r");
       	booknumber=0;
@@ -580,11 +580,11 @@ void delete_book()/*????????ƶ????Ϣ???ɾ??*/
      	fclose(p1);
       	if(bookinfo[0].quantity==0)
         {
-        	printf("???????????!\n\n");
-        	printf("???????ص???˵?!\n\n");
+        	printf("书库中没有任何信息!\n\n");
+        	printf("按任意键回到主菜单!\n\n");
         	getch();
         	break;
-        }/*if???*/
+        }/*if结束*/
         else
         {
         	for(n=0;n<booknumber;n++)
@@ -593,10 +593,10 @@ void delete_book()/*????????ƶ????Ϣ???ɾ??*/
            		break;
             }
         	if(n>=booknumber)
-          		printf("\nû???Ҹ???????!\n");
+          		printf("\n没有查找该书的任何信息!\n");
         	else
             {
-           		printf("\n??????Ҫɾ??????Ŀ(Y/N):");
+           		printf("\n是否确认需要删除该条书目(Y/N):");
            		choice=getch();
              	while(choice!='Y'&&choice!='y'&&choice!='N'&&choice!='n')
       	    		choice=getch();
@@ -612,12 +612,12 @@ void delete_book()/*????????ƶ????Ϣ???ɾ??*/
 						bookinfo[n].number,bookinfo[n].name,bookinfo[n].author,
 						bookinfo[n].press,bookinfo[n].category,bookinfo[n].price,bookinfo[n].quantity,bookinfo[n].time);
              		fclose(p1);
-           			printf("\nɾ???ɹ?!");
+           			printf("\n删除成功!");
              	}
            		else
-              		printf("\n????Ŀû???ɾ??!");
+              		printf("\n该条书目没有被删除!");
            }
-            printf("\n\n???????ɾ?????(y/n):");
+            printf("\n\n是否继续进行删除操作(y/n):");
          		choice=getch();
          	while(choice!='Y'&&choice!='y'&&choice!='N'&&choice!='n')
       	   		choice=getch();
@@ -627,11 +627,11 @@ void delete_book()/*????????ƶ????Ϣ???ɾ??*/
            		continue;
          	else
            		break;
-        }/*else???*/
-      }/*while(1)???*/
+        }/*else结束*/
+      }/*while(1)结束*/
     }
 
-void display_price_lower()/*???ݼ۸?г?ͼ??Ϣ*/
+void display_price_lower()/*根据价格列出图书信息*/
 {
     float price;
     FILE *p1;
@@ -641,7 +641,7 @@ void display_price_lower()/*???ݼ۸?г?ͼ??Ϣ*/
     int booknumber;
 
     system("cls");
-    printf("???????????????????????λ??͵?鼮:");
+    printf("请输入你的理想价格,我们将推荐比您理想价位稍低的书籍:");
     scanf("%f",&price);
     p1=fopen("library.txt","r");
     booknumber=0;
@@ -656,7 +656,7 @@ void display_price_lower()/*???ݼ۸?г?ͼ??Ϣ*/
     fclose(p1);
     if(bookinfo[0].quantity==0)
     {
-      	printf("\nû???????Ϣ!\n");
+      	printf("\n没有任何图书信息!\n");
     }
     else
     {
@@ -666,12 +666,12 @@ void display_price_lower()/*???ݼ۸?г?ͼ??Ϣ*/
           	count++;
         }
       	if(count==0)
-       		printf("????????.1fԪ?۸??͵?????",price);
+       		printf("书库中没有比%.1f元价格更低的图书。",price);
       	else
         {
-        	printf("\n?۸??%.1fԪ?????Ϣ?%d??\n",price,count);
-       		printf("|---------------------------------ͼ??Ϣ---------------------------------|\n");
-      		printf("|??  ??        ??      ?????         ??    ????   ?ݲ??  ????|\n");
+        	printf("\n价格低于%.1f元的图书信息有%d本\n",price,count);
+       		printf("|---------------------------------图书信息---------------------------------|\n");
+      		printf("|编号  书名        作者      出版社          类别    单价    馆藏量  借阅数|\n");
       		printf("|                                                                          |\n");
         	for(n=0;n<booknumber;n++)
           	{
@@ -681,7 +681,7 @@ void display_price_lower()/*???ݼ۸?г?ͼ??Ϣ*/
           	}
         }
       }
-    printf("\n\n???????ص???˵?!\n");
+    printf("\n\n按任意键回到主菜单!\n");
     getch();
     }
 
@@ -689,15 +689,15 @@ void modify_book()
 {
 	int flag=1,flag1=1,flag2,n;
 	char change,choice;
-	char number[15];/*ͼ???*/
-    char name[30];/*ͼ????/
-    char author[20];/*??*/
-   	char press[30];/*?????/
-	char category[20];/*??*/ 
-    int  quantity;/*????*/
-    float price;/*????/
+	char number[15];/*图书编号*/
+    char name[30];/*图书名称*/
+    char author[20];/*作者*/
+   	char press[30];/*出版社*/
+	char category[20];/*类别*/ 
+    int  quantity;/*藏书量*/
+    float price;/*单价*/
     
-	char search[30];/*Ҫ??ĵ???*/ 
+	char search[30];/*要修改的书名*/ 
 	FILE *p1;
 	BOOKINFO bookinfo[100];
 	int booknumber;
@@ -706,7 +706,7 @@ void modify_book()
     	flag2=0;
     	system("cls");
     	fflush(stdin);
-      	printf("??Ҫ???????鱾?:");
+      	printf("输入要修改信息的书本名:");
       	gets(search);
       	p1=fopen("library.txt","r");
       	booknumber=0;
@@ -721,8 +721,8 @@ void modify_book()
       	fclose(p1);
       	if(bookinfo[0].quantity==0)
         {
-        	printf("???????????!\n\n");
-        	printf("???????ص???˵?!\n\n");
+        	printf("书库中没有任何信息!\n\n");
+        	printf("按任意键回到主菜单!\n\n");
         	getch();
         	break;
         }
@@ -732,19 +732,19 @@ void modify_book()
          		if(strcmp(bookinfo[n].name,search)==0)
             	{
             		printf("\n"); 
-         			printf("|---------------------------------ͼ??Ϣ---------------------------------|\n");
-      				printf("|??  ??        ??      ?????         ??    ????   ?ݲ??  ????|\n");
+         			printf("|---------------------------------图书信息---------------------------------|\n");
+      				printf("|编号  书名        作者      出版社          类别    单价    馆藏量  借阅数|\n");
       				printf("|                                                                          |\n");
     				printf("|%-6s%-12s%-10s%-16s%-8s%-8.1f%-8d%-6d|\n",bookinfo[n].number,bookinfo[n].name,bookinfo[n].author,
                      	   bookinfo[n].press,bookinfo[n].category,bookinfo[n].price,bookinfo[n].quantity,bookinfo[n].time);
        				
 					while(flag1){
-					printf("\n1.?????\n2.??????n3.?????\n4.?????n5.?????\n6.???????n7.????\n\n??Ҫ??ĵ??");
+					printf("\n1.书籍编号\n2.书籍名称\n3.书籍作者\n4.出版社\n5.书籍类别\n6.书籍单价\n7.藏书量\n\n您想要修改的是:");
 					change=getch();
 					while(change!='1'&&change!='2'&&change!='3'&&change!='4'&&change!='5'&&change!='6'&&change!='7')
   						change=getch();
   					printf("%c",change);
-           			printf("\n????????:");
+           			printf("\n请输入新的字条:");
            			fflush(stdin);
             		switch(change)
             		{
@@ -758,14 +758,14 @@ void modify_book()
             			case '5':gets(category);strcpy(bookinfo[n].category,category);flag1=0;break;
             			case '6':scanf("%f",&price);bookinfo[n].price=price;flag1=0;break;
             			case '7':scanf("%d",&quantity);bookinfo[n].quantity=quantity;flag1=0;break;
-            			default:break;/*?Ȼѹ????????default?????????????????©??¼ӵ?ase??hile??????????/
+            			default:break;/*虽然压根不会读到default情况，但是怕后来开发者漏掉新加的case的while处理，所以加上*/
 					}
 				}
 			flag1=1;
             break;
             }
         if(n>=booknumber)
-           printf("\nû???Ҹ???????!");
+           printf("\n没有查找该书的任何信息!");
         else if(!flag2)
         {
             p1=fopen("library.txt","w");
@@ -774,11 +774,11 @@ void modify_book()
 					bookinfo[n].number,bookinfo[n].name,bookinfo[n].author,
 					bookinfo[n].press,bookinfo[n].category,bookinfo[n].price,bookinfo[n].quantity,bookinfo[n].time);
             fclose(p1);
-            printf("\n??ĳɹ?!");
+            printf("\n修改成功!");
         }
         else
-        	printf("????ĵ????Ϣ???????????"); 
-   		printf("\n??????????y/n):");
+        	printf("您想修改的图书信息与馆内信息重复。"); 
+   		printf("\n是否继续进行修改(y/n):");
         choice=getch();
         while(choice!='Y'&&choice!='y'&&choice!='N'&&choice!='n')
       	    choice=getch();
@@ -803,7 +803,7 @@ void borrow_book(char account[20])
 
     while(flag)
     {
-      	printf("??Ҫ??ĵ?鱾?:");
+      	printf("输入要借阅的书本名:");
       	gets(search);
       	p1=fopen("library.txt","r");
       	booknumber1=0;
@@ -819,8 +819,8 @@ void borrow_book(char account[20])
 	
       	if(bookinfo[0].quantity==0)
         {
-        	printf("\n???????????!\n");
-        	printf("???????ص???˵?!\n\n");
+        	printf("\n书库中没有任何信息!\n");
+        	printf("按任意键回到主菜单!\n\n");
         	getch();
         	break;
         }
@@ -832,7 +832,7 @@ void borrow_book(char account[20])
 					bookinfo[n].quantity--;
 					bookinfo[n].time++;
 					
-					p3=fopen("memberbook.txt","a");  /*????׷?ӵķ?ʽ??????????????*/ 
+					p3=fopen("memberbook.txt","a");  /*借书以a追加的方式，在文件中增加一本书*/ 
 					fprintf(p1,"%s %s %s %s %s %f %s\n",
 							bookinfo[n].number,bookinfo[n].name,bookinfo[n].author,bookinfo[n].press,
 							bookinfo[n].category,bookinfo[n].price,account);
@@ -841,7 +841,7 @@ void borrow_book(char account[20])
 				}
             }
         if(n>=booknumber1)
-           printf("\nû???Ҹ???????!\n");
+           printf("\n没有查找该书的任何信息!\n");
         else
         {
             p1=fopen("library.txt","w");
@@ -850,9 +850,9 @@ void borrow_book(char account[20])
 					bookinfo[n].number,bookinfo[n].name,bookinfo[n].author,bookinfo[n].press,
 					bookinfo[n].category,bookinfo[n].price,bookinfo[n].quantity,bookinfo[n].time);
             fclose(p1);
-            printf("\n?????!\n");
+            printf("\n借书成功!\n");
         }
-   		printf("\n???????y/n):");
+   		printf("\n是否继续借书(y/n):");
         choice=getch();
         while(choice!='Y'&&choice!='y'&&choice!='N'&&choice!='n')
       	    choice=getch();
@@ -902,9 +902,9 @@ void return_book(char account[20])
 		}
 		fclose(p3);				
       	
-		printf("????ĵ???ͼ??Ϣ??:\n"); 
-        printf("|----------------------------ͼ??????--------------------|\n");
-      	printf("|??  ??        ??      ?????         ??    ????   |\n");
+		printf("您所借阅的所有图书信息如下:\n"); 
+        printf("|----------------------------图书借阅信息--------------------|\n");
+      	printf("|编号  书名        作者      出版社          类别    单价    |\n");
         while(t<booknumber2)
        	{
         	if(strcmp(bookgrasp[t].account,account)==0)
@@ -916,12 +916,12 @@ void return_book(char account[20])
         	t++;
         }
       	
-      	printf("\n??Ҫ?黹??鱾?:");
+      	printf("\n输入要归还的书本名:");
       	gets(search);
       	if(bookinfo[0].quantity==0)
         {
-        	printf("\n???????????!\n");
-        	printf("???????ص???˵?!\n\n");
+        	printf("\n书库中没有任何信息!\n");
+        	printf("按任意键回到主菜单!\n\n");
         	getch();
         	break;
         }
@@ -933,7 +933,7 @@ void return_book(char account[20])
 						bookinfo[n].quantity++;
 
 						if(bookgrasp[0].price==0)
-							printf("\n?û????????");
+							printf("\n您没有借书信息。");
 						else{
 						for(k=0;k<booknumber2;k++)
 							if(!strcmp(bookgrasp[k].account,account)&&!strcmp(bookgrasp[k].name,search))
@@ -958,7 +958,7 @@ void return_book(char account[20])
 					}
 				} 
         if(n==booknumber||flag2==0)
-        	printf("???û????????!\n"); 
+        	printf("您并没有这条借阅信息!\n"); 
         if(n<booknumber&&flag2==1)
         {
             p1=fopen("library.txt","w");
@@ -967,13 +967,13 @@ void return_book(char account[20])
 				bookinfo[n].number,bookinfo[n].name,bookinfo[n].author,
 				bookinfo[n].press,bookinfo[n].category,bookinfo[n].price,bookinfo[n].quantity,bookinfo[n].time);
             fclose(p1); 
-            printf("\n????ɹ???");
+            printf("\n还书成功！");
         }
         else
-        	printf("\n???ʧ?ܣ?");
+        	printf("\n还书失败！");
         
 		fflush(stdin);	
-   		printf("\n???????(y/n):");
+   		printf("\n是否继续还书(y/n):");
         choice=getch();
         while(choice!='Y'&&choice!='y'&&choice!='N'&&choice!='n')
       	    choice=getch();
@@ -986,7 +986,7 @@ void return_book(char account[20])
 	}
 }
 
-void dispaly_popular()/*ͼ????ӭ???а?/ 
+void dispaly_popular()/*图书受欢迎度排行榜*/ 
 {
     FILE *p1;
     int n,i,j,k;
@@ -1010,7 +1010,7 @@ void dispaly_popular()/*ͼ????ӭ???а?/
     
     if(bookinfo[0].quantity==0)
     {
-      	printf("û???????Ϣ!\n\n");
+      	printf("没有任何图书信息!\n\n");
     }
     else
     {
@@ -1028,8 +1028,8 @@ void dispaly_popular()/*ͼ????ӭ???а?/
       		}
       	}
         	
-       		printf("|---------------------------ͼ????ӭ???а?----------------------------|\n");
-      		printf("|??  ??        ??      ?????         ??    ????   ?ݲ??  ????|\n");
+       		printf("|---------------------------图书受欢迎度排行榜-----------------------------|\n");
+      		printf("|编号  书名        作者      出版社          类别    单价    馆藏量  借阅数|\n");
       		printf("|                                                                          |\n");
         	for(n=0;n<booknumber;n++)
           	{
@@ -1038,7 +1038,7 @@ void dispaly_popular()/*ͼ????ӭ???а?/
           	}
         
       }
-    printf("\n\n???????ص???˵?!\n");
+    printf("\n\n按任意键回到主菜单!\n");
     getch();
 }
 
@@ -1086,31 +1086,31 @@ void member_log_up()
 		system("cls");
 		fflush(stdin);
 	
-		printf("????ע??ID?:");
+		printf("输入您想注册的ID名:");
 		gets(member.ID);
 		
 		if(check_repeat_ID(member.ID))
 		{	
-			printf("??D???ע?ᣡ???ע??_^\n");
-			printf("????????ע??n\n");
+			printf("该ID已被注册！请重新注册^_^\n");
+			printf("按任意键重新注册\n\n");
 			getch();
 			flag=1; 
 		}
 		else{
 			flag=0;
-			printf("?????????Ҫ?????):");
+			printf("输入您的密码(不要告知他人):");
 			gets(member.password);
 			
-			printf("????????Կ(?????˻????벻??????):"); 
+			printf("输入找回密码的密钥(以免忘记账户或密码不能登陆！):"); 
 			gets(member.password_key); 
 			
-			printf("???????:");
+			printf("输入您的姓名:");
 			gets(member.name);
 	
-			printf("?????Ա??ʿ??male,Ůʿ??female):");
+			printf("输入您的性别(男士输入male,女士输入female):");
 			gets(member.sex);
 	
-			printf("??񱣴??ע????(y/n):");
+			printf("是否保存这次注册信息(y/n):");
     		choice1=getch();
     		while(choice1!='Y'&&choice1!='y'&&choice1!='N'&&choice1!='n')
       	    	choice1=getch();
@@ -1122,13 +1122,13 @@ void member_log_up()
 	    	fprintf(p2,"%s %s %s %s %s\n",member.ID,member.password,
 					member.password_key,member.name,member.sex);
 	    	fclose(p2);
-			printf("\n???˻??ע??????\n");
+			printf("\n您的账户已注册成功！\n");
     	}
     	else
     	{
-       		printf("\n????????δ????\n");
+       		printf("\n您的注册信息未保存!\n");
     	}
-    	printf("\n????ע??Ա(y/n):");
+    	printf("\n是否继续注册会员(y/n):");
         choice2=getch();
         while(choice2!='Y'&&choice2!='y'&&choice2!='N'&&choice2!='n')
       	    choice2=getch();
@@ -1173,9 +1173,9 @@ int user_account(char account[20])
 			fclose(p3);
 			if(bookgrasp[0].price<=1e-8)
 			{
-				printf("??ǰͼ???????ν????");
+				printf("当前图书馆未有任何借书信息");
 				flag=0;
-				printf("\n\n??????????\n");
+				printf("\n\n按任意键返回!\n");
    				getch();
 			}
 			else{ 		
@@ -1184,12 +1184,12 @@ int user_account(char account[20])
 					{
 						i=0;
 						printf("\n");
-						printf("|---------------------------????Ϣ-------------------------|\n");
-    					printf("|??        ???     ID              ??                  |\n");
+						printf("|---------------------------个人信息-------------------------|\n");
+    					printf("|姓名        性别      ID              密码                  |\n");
     					printf("|%-12s%-10s%-16s%-22s%|\n",member[n].name,member[n].sex,member[n].ID,member[n].password);
     					printf("|                                                            |\n");
-    					printf("|----------------------------ͼ??????--------------------|\n");
-      					printf("|??  ??        ??      ?????         ??    ????   |\n");
+    					printf("|----------------------------图书借阅信息--------------------|\n");
+      					printf("|编号  书名        作者      出版社          类别    单价    |\n");
       		
       					while(i<booknumber)
        				 	{
@@ -1203,18 +1203,18 @@ int user_account(char account[20])
         					i++;
         				}
         				if(strcmp(member[n].sex,"male")==0) 
-       				 	printf("\n%s???????ǰ??ĵ?鼮???%d????",member[n].name,count);
+       				 	printf("\n%s先生，您当前借阅的书籍共有%d本。",member[n].name,count);
         				else if(strcmp(member[n].sex,"female")==0)
-        				printf("\n%sŮʿ?????ǰ??ĵ?鼮???%d????",member[n].name,count);
+        				printf("\n%s女士，您当前借阅的书籍共有%d本。",member[n].name,count);
         				else
-						printf("\n%s?????ǰ??ĵ?鼮???%d????",member[n].name,count); 
+						printf("\n%s，您当前借阅的书籍共有%d本。",member[n].name,count); 
         				
 						if(bookgrasp[0].price<=1e-8) 
-       				 	printf("\n??ͼ???ڹ??0???????????ġ?\n");
+       				 	printf("\n而图书馆内共有0本书籍正在被借阅。\n");
        				 	else
-       				 	printf("\n??ͼ???ڹ??%d???????????ġ?\n",booknumber);
+       				 	printf("\n而图书馆内共有%d本书籍正在被借阅。\n",booknumber);
         	
-						printf("\nPS:??????????y/n):");
+						printf("\nPS:是否需要修改密码(y/n):");
 						fflush(stdin);
 						choice=getch();
 						while(choice!='Y'&&choice!='y'&&choice!='N'&&choice!='n')
@@ -1223,12 +1223,12 @@ int user_account(char account[20])
 						printf("\n");
 						if(choice=='Y'||choice=='y')
 						{
-							printf("\n?????????Կ(user_key):");
+							printf("\n请输入修改密码的密钥(user_key):");
 							fflush(stdin);
 							gets(key);
 							if(strcmp(member[n].password_key,key)==0)
 							{
-								printf("????????");
+								printf("请输入新密码：");
 								fflush(stdin);
 								gets(new_password);
 								strcpy(member[n].password,new_password);
@@ -1240,7 +1240,7 @@ int user_account(char account[20])
            						fclose(p2);
            						}
            						else{
-           							printf("\n???Կ???"); 
+           							printf("\n输入密钥错误!"); 
 								}
 							}
 						else
@@ -1250,8 +1250,8 @@ int user_account(char account[20])
     				}		 
    	if(flag==1)
    		{
-		    printf("\n????ĳɹ???"); 
-		    printf("\n??????????\n");
+		    printf("\n密码修改成功！"); 
+		    printf("\n按任意键返回!\n");
    			getch();
 		    return 1;
 		}
@@ -1260,7 +1260,7 @@ int user_account(char account[20])
 	}
 } 
 
-void find_account()/*?????غ??*/
+void find_account()/*账户找回函数*/
 {
 	FILE *p2;
 	MEMBER member[100];
@@ -1271,7 +1271,7 @@ void find_account()/*?????غ??*/
 
     	system("cls");
     	fflush(stdin);
-    	printf("???????:");
+    	printf("输入您的姓名:");
     	gets(search);
       	p2=fopen("infomember.txt","r");
       	number=0;
@@ -1284,7 +1284,7 @@ void find_account()/*?????غ??*/
       	fclose(p2);
       	if(strcmp(member[0].ID,vacancy)==0)
         {
-        	printf("ϵͳ???û???λ???Ϣ!\n\n");
+        	printf("系统中还没有任何会员信息!\n\n");
         }
         else
         {
@@ -1294,17 +1294,17 @@ void find_account()/*?????غ??*/
             		mark=1;
             		while(flag)
             		{
-						printf("????????:");
+						printf("请输入您的密钥:");
 						fflush(stdin);
 						gets(compare);
 						if(strcmp(member[n].password_key,compare)==0)
 						{
 							printf("\n");
-							printf("|------------------------------????Ϣ------------------------------|\n");
-    						printf("|??        ???     ID                  ??	                     |\n");
+							printf("|------------------------------个人信息------------------------------|\n");
+    						printf("|姓名        性别      ID                  密码	                     |\n");
     						printf("|%-12s%-10s%-20s%-26s%|\n",member[n].name,member[n].sex,member[n].ID,member[n].password);
 						
-							printf("\n??????????y/n):");
+							printf("\n是否需要修改密码(y/n):");
 							fflush(stdin);
 							choice=getch();
 							while(choice!='Y'&&choice!='y'&&choice!='N'&&choice!='n')
@@ -1313,7 +1313,7 @@ void find_account()/*?????غ??*/
 							printf("\n");
 							if(choice=='Y'||choice=='y')
 								{
-									printf("\n????????");
+									printf("\n请输入新密码：");
 									fflush(stdin);
 									gets(new_password);
 									strcpy(member[n].password,new_password);
@@ -1323,11 +1323,11 @@ void find_account()/*?????غ??*/
 								flag=0;	
 						}
 						else{
-							--k;/*???????count*/ 
+							--k;/*密码输入次数count*/ 
 							if(k!=0)
 							{
-								printf("\n\n\n\t\t?????????\n\t\t????%d?λ????????룡",k);
-								printf("????????????(y/n):");
+								printf("\n\n\n\t\t您的密码输入有误!\n\t\t您还有%d次机会重新输入密码！",k);
+								printf("您是否要继续输入密码(y/n):");
 								fflush(stdin);
 								while(choice!='Y'&&choice!='y'&&choice!='N'&&choice!='n')
       	    						choice=getch();
@@ -1339,7 +1339,7 @@ void find_account()/*?????غ??*/
 									flag=0;
 							}	
 							else{
-								printf("????????????????????..");
+								printf("您输入次数已用完！正在退回主界面...");
 								flag=0;
               	 		}
 					}
@@ -1348,7 +1348,7 @@ void find_account()/*?????غ??*/
  		}
  		if(mark==0)
         {
-		   	printf("???δע?᱾ϵͳ???!\n");
+		   	printf("您并未注册本系统会员!\n");
         } 
         else
         {
@@ -1359,15 +1359,15 @@ void find_account()/*?????غ??*/
             	fprintf(p2,"%s %s %s %s %s\n",member[n].ID,member[n].password,
 						member[n].password_key,member[n].name,member[n].sex);
             fclose(p2);
-            printf("???ɹ???????˻?!\n");
+            printf("您已成功找回/修改账户!\n");
         	}
         }
-    printf("\n\n???????ص???˵?!\n");
+    printf("\n\n按任意键回到主菜单!\n");
     fflush(stdin);
     getch();
 } 
  
-int member_log_in(char account[15])/*?????????*/
+int member_log_in(char account[15])/*会员登录函数*/
 {
 	FILE *p2;
 	MEMBER member[100];
@@ -1394,18 +1394,18 @@ int member_log_in(char account[15])/*?????????*/
 		{
 			while(flag2)
 			{
-				if(compare_password(member[n].password))/* ?????????ȶԺ?? */ 
+				if(compare_password(member[n].password))/* 调用会员密码比对函数 */ 
 				{ 
-					printf("\n\n\n\t\t\t   ?˶??ȷ?????????????..");
+					printf("\n\n\n\t\t\t   核对正确！正在进入会员界面...");
 					clock_delay();
       	       	 	return 1;
 				}
 				else{
-					--k;/*???????count*/ 
+					--k;/*密码输入次数count*/ 
 					if(k!=0)
 					{
-						printf("\n\n\n\t\t\t   ????????????%d?λ????????룡",k);
-						printf("\n\t\t\t   ????????????(y/n):");
+						printf("\n\n\n\t\t\t   您的密码输入有误!还有%d次机会重新输入密码！",k);
+						printf("\n\t\t\t   您是否要继续输入密码(y/n):");
 						fflush(stdin);
 						choice1=getch();
 						while(choice1!='Y'&&choice1!='y'&&choice1!='N'&&choice1!='n')
@@ -1418,7 +1418,7 @@ int member_log_in(char account[15])/*?????????*/
 							return 0;
 					}
 					else{
-						printf("\n\n\t\t\t   ????????????????????...");
+						printf("\n\n\t\t\t   您输入次数已用完！按任意键退出...");
 						fflush(stdin);
    						getch(); 
               	 		return 0;
@@ -1428,7 +1428,7 @@ int member_log_in(char account[15])/*?????????*/
 			flag2=1;
    		}
    		else{
-   			printf("\n\n\n\t\t\t  ??D??δע???????ע??Ա(y/n):");
+   			printf("\n\n\n\t\t\t  该ID还未注册,是否需要注册会员(y/n):");
 			choice2=getch();
 			while(choice2!='Y'&&choice2!='y'&&choice2!='N'&&choice2!='n')
       	    	choice2=getch();
@@ -1444,17 +1444,17 @@ int member_log_in(char account[15])/*?????????*/
 		}
 }
 
-int compare_password(char *password)/*???ȶԺ?? */ 
+int compare_password(char *password)/*密码比对函数 */ 
 {
 	int i=0;
 	char compare[20],c;
 	fflush(stdin);
-	printf("\n\t\t\t   ??(password):");
-	while((c=getch())!=13)//\r?????????????
+	printf("\n\t\t\t   密码(password):");
+	while((c=getch())!=13)//\r是将光标移到该行首位
 	{
 	if(c==8&&i>0)
 	{
-	printf("\b \b");//???*?źʹ??
+	printf("\b \b");//清除*号和错符
 	i--;
 	continue;
 	}
@@ -1467,17 +1467,17 @@ int compare_password(char *password)/*???ȶԺ?? */
 	compare[i]='\0';
 	if(strcmp(password,compare)==0)
 		{
-		printf("\a");  //???
+		printf("\a");  //响铃
 		return 1;
 		}
 	else
 		{
-		printf("\a");  //???
+		printf("\a");  //响铃
 		return 0;
 		}
 }
 
-int check_repeat_ID(char *id_account)/*??غ??*/ 
+int check_repeat_ID(char *id_account)/*查重函数*/ 
 {
 	FILE *p2;
 	MEMBER member[100];
@@ -1507,7 +1507,7 @@ int check_repeat_ID(char *id_account)/*??غ??*/
 		}
 }
 
-void ADMIN_watch_member()/*?鿴????Ϣ???*/
+void ADMIN_watch_member()/*查看会员信息函数*/
 {
 	FILE *p2;
 	MEMBER member[100];
@@ -1525,19 +1525,19 @@ void ADMIN_watch_member()/*?鿴????Ϣ???*/
 	}
 	fclose(p2);
 	
-	printf("ϵͳע??û??%dλ:",number);
+	printf("系统注册用户有%d位:",number);
 	printf("\n\n");
-	printf("|-----------------------????Ϣ-----------------------|\n");
-    printf("|??      ???   ID            ??  	         ?Կ  |\n");
+	printf("|-----------------------会员信息-----------------------|\n");
+    printf("|姓名      性别    ID            密码  	         密钥  |\n");
     for(n=0;n<number;n++)
 		printf("|%-10s%-8s%-14s%-16s%-6s%|\n",member[n].name,member[n].sex,
 				member[n].ID,member[n].password,member[n].password_key);
 
-    printf("\n\n???????????????˵?!\n");
+    printf("\n\n按任意键返回上一级菜单!\n");
    	getch();
 } 
 
-void display_memberbook()/*?鿴??ͼ?????????*/
+void display_memberbook()/*查看所有图书借阅信息函数*/
 {
 	FILE *p3;
 	BOOKGRASP bookgrasp[100];
@@ -1554,46 +1554,45 @@ void display_memberbook()/*?鿴??ͼ?????????*/
 		booknumber++;
 	}
 	if(bookgrasp[0].price==0.0)
-		printf("??ǰû??????");
+		printf("当前没有借阅信息");
 	else{ 
-	printf("??ǰ???%dλ??????鼮??",booknumber);
+	printf("当前共有%d位会员借阅书籍。",booknumber);
 	printf("\n");
-   	printf("|---------------------------??????Ϣ-----------------------------------|\n");
-   	printf("|??  ??        ??      ?????         ??    ????   ???D        |\n");
+   	printf("|---------------------------借阅图书信息-----------------------------------|\n");
+   	printf("|编号  书名        作者      出版社          类别    单价    借阅ID        |\n");
    	printf("|                                                                          |\n");
     for(n=0;n<booknumber;n++)		
        	printf("|%-6s%-12s%-10s%-16s%-8s%-8.1f%-14s|\n",bookgrasp[n].number,
 				bookgrasp[n].name,bookgrasp[n].author,bookgrasp[n].press,
 				bookgrasp[n].category,bookgrasp[n].price,bookgrasp[n].account); 
 	} 
-	printf("\n\n??????????..");
+	printf("\n\n输入任意键返回...");
 	fflush(stdin);
 	getch(); 
 } 
 
-void password_circle()/*?????*/ 
+void password_circle()/*画框函数*/ 
 {
 	system("cls");
 	printf("\n\n\n\t\t\t***================================*** \n");
 	printf("\t\t\t                                   \n");
-	printf("\t\t\t   ??? (account):");
+	printf("\t\t\t   账户 (account):");
 }
 
-void clock_delay()/*ʱ???????*/
+void clock_delay()/*时间延时函数*/
 {
 	clock_t tm;
 	tm=clock();
     while(clock()<tm+1000);
 }	
 
-void find_account_circle()/*???˻????????*/
+void find_account_circle()/*找回账户弹出框函数*/
 {
 	printf("\n\n\n\n");
 	printf("\t\t\t===============H-E-L-P===================\n");
 	printf("\t\t\t|                                       |\n");
-	printf("\t\t\t* ?????Ҫͨ???Կ???˻???(??y/n) *\n");
+	printf("\t\t\t* 您需不需要通过密钥找回账户？(输入y/n) *\n");
 	printf("\t\t\t|                                       |\n");
 	printf("\t\t\t=========================================\n");
-	printf("\n\t\t\t??????:");
+	printf("\n\t\t\t您的选择是:");
 }
-

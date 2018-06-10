@@ -16,11 +16,9 @@ I did it attentively, so I hope you can enjoy it. The use of the interface is as
 
 ![6](https://pic4.zhimg.com/80/v2-b634788c96444d68a5e3670d8902748d_hd.jpg)
 
-![7](https://pic3.zhimg.com/80/v2-db67d2934ca135ce415900ec119c77b3_hd.jpg)
+![7](https://pic1.zhimg.com/80/v2-f34567b98f75945e485d8c6330132d53_hd.jpg)
 
-![8](https://pic1.zhimg.com/80/v2-f34567b98f75945e485d8c6330132d53_hd.jpg)
-
-![9](https://pic1.zhimg.com/80/v2-5d302e37d1fa9161eb7ffc378bd15dd0_hd.jpg)
+![8](https://pic1.zhimg.com/80/v2-5d302e37d1fa9161eb7ffc378bd15dd0_hd.jpg)
 
 ### 2. Comments and Considerations
 

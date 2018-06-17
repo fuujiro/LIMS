@@ -1,8 +1,10 @@
 ## Library Information Management System
-### 1. Reasons for do this project.
-I'm a freshman in the [Dalian University of Technology](https://www.dlut.edu.cn/), and this project is the curriculum design of "C language course". 
 
-I did it attentively, so I hope you can enjoy it. The use of the interface is as follows: 
+### 1. Reasons for do this project.
+
+I'm a freshman of Electrical Information Innovation Experiment Class 2016 fall, [Faculty of Electronic Information and Electrical Engineering](http://ee.dlut.edu.cn/en_.htm), [Dalian Univ. of Tech.](http://en.dlut.edu.cn/) and this project is the curriculum design of "C language course". 
+
+I have done it for a week attentively, so I hope you can enjoy it. The screenshots of using are as follows: 
 
 ![1](https://pic1.zhimg.com/80/v2-e6ff3824cc79fc4ebc66fa7c3862ef71_hd.jpg)
 
@@ -24,11 +26,11 @@ I did it attentively, so I hope you can enjoy it. The use of the interface is as
 
 * The platform I developed at that time was Windows. So if you are Linux or macOS user, maybe you can't run this project code normally. 
 
-* Please do your homework independently, so you can learn for reference, but it's better not to plagiarize
+* Please do your homework independently, so you can learn for reference, but it's better not to plagiarize.
 
 ### 3. Encoding format
 
-.C Text is encoded with **UTF-8**, But the .text Text is encoded with **GBK**. Please forgive me.
+.C Text is encoded with **UTF-8**, But the .text Text is encoded with **GBK**. 
 
 ### 4. Joke
- I'm a freshman in the computer science and engineering. Follow me~~~!
+I'm a fun man. Follow me~~~!

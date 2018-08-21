@@ -6,21 +6,21 @@ I'm a freshman of Electrical Information Innovation Experiment Class 2016 fall, 
 
 I have done it for a week attentively, so I hope you can enjoy it. The screenshots of using are as follows: 
 
-![1](https://pic1.zhimg.com/80/v2-e6ff3824cc79fc4ebc66fa7c3862ef71_hd.jpg)
+![1](https://raw.githubusercontent.com/fuujiro/pictures/master/LIMS/1.jpeg)
 
-![2](https://pic4.zhimg.com/80/v2-2daf25dad92e05a38190450b436b4735_hd.jpg)
+![2](https://raw.githubusercontent.com/fuujiro/pictures/master/LIMS/2.jpeg)
 
-![3](https://pic4.zhimg.com/80/v2-63573e0fdf72cdfdb1eb5a655b8d697a_hd.jpg)
+![3](https://raw.githubusercontent.com/fuujiro/pictures/master/LIMS/3.jpeg)
 
-![4](https://pic1.zhimg.com/80/v2-f98b1eb9f6e0b2fcfa8753c69d2d1401_hd.jpg)
+![4](https://raw.githubusercontent.com/fuujiro/pictures/master/LIMS/4.jpeg)
 
-![5](https://pic1.zhimg.com/80/v2-bcb1993b3651840013d47600e4fa4ce6_hd.jpg)
+![5](https://raw.githubusercontent.com/fuujiro/pictures/master/LIMS/5.jpeg)
 
-![6](https://pic4.zhimg.com/80/v2-b634788c96444d68a5e3670d8902748d_hd.jpg)
+![6](https://raw.githubusercontent.com/fuujiro/pictures/master/LIMS/6.jpeg)
 
-![7](https://pic1.zhimg.com/80/v2-f34567b98f75945e485d8c6330132d53_hd.jpg)
+![7](https://raw.githubusercontent.com/fuujiro/pictures/master/LIMS/7.jpeg)
 
-![8](https://pic1.zhimg.com/80/v2-5d302e37d1fa9161eb7ffc378bd15dd0_hd.jpg)
+![8](https://raw.githubusercontent.com/fuujiro/pictures/master/LIMS/8.jpeg)
 
 ### 2. Comments and Considerations
 

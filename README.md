@@ -33,4 +33,5 @@ I have done it for a week attentively, so I hope you can enjoy it. The screensho
 .C Text is encoded with **UTF-8**, But the .text Text is encoded with **GBK**. 
 
 ### 4. Joke
-I am actually a fun-loving person~! If will, Follow me~~~!
+
+I am actually a easygoing & active boy~! If will, Follow me~~~!

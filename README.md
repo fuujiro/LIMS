@@ -32,6 +32,12 @@ I have done it for a week attentively, so I hope you can enjoy it. The screensho
 
 .C Text is encoded with **UTF-8**, But the .text Text is encoded with **GBK**. 
 
-### 4. Joke
+### 4. Support
+
+Compile Enviorment:
+  1. windows 10 && Gcc 4.8 (ensure OK!But have some warnings.)
+  2. Apple macOS 14.1 && clang (sorry, have a bit error, you should solve by yourself.)
+
+### 5. Joke
 
 I am actually a easygoing & active boy~! If will, Follow me~~~!

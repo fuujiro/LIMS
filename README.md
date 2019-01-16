@@ -1,6 +1,6 @@
 ## Library Information Management System
 
-### 1. Reasons for do this project.
+### 1. Reasons for this project.
 
 I'm a freshman of Electrical Information Innovation Experiment Class 2016 fall, [Faculty of Electronic Information and Electrical Engineering](http://ee.dlut.edu.cn/en_.htm), [Dalian Univ. of Tech.](http://en.dlut.edu.cn/) and this project is the curriculum design of "C language course". 
 

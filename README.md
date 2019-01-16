@@ -24,19 +24,19 @@ I have done it for a week attentively, so I hope you can enjoy it. The screensho
 
 ### 2. Comments and Considerations
 
-* The platform I developed at that time was Windows. So if you are Linux or macOS user, maybe you can't run this project code normally. 
+* The enviroment I developed this project on Windows that time. So if you are Linux or macOS user, maybe you can't run this project code normally. 
 
-* Please do your homework independently, so you can learn for reference, but it's better not to plagiarize.
+* Do your homework for yourself. You can learn for reference, but it's better not to plagiarize.
 
 ### 3. Encoding format
 
-.C Text is encoded with **UTF-8**, But the .text Text is encoded with **GBK**. 
+.C Text is encoded with **UTF-8**, But the .text Text is encoded with **GBK**. Maybe you will find error about text format. You can change all text format to **UTF-8**, maybe solve it.
 
 ### 4. Support
 
 Compile Enviorment:
   1. windows 10 && Gcc 4.8 (ensure OK! But have some warnings.)
-  2. Apple macOS 14.1 && clang (sorry, have a bit error, you should solve by yourself.)
+  2. Apple macOS 14.1 && clang (sorry, have a little error, you can solve by yourself.)
 
 ### 5. Joke
 

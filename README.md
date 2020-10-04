@@ -38,6 +38,6 @@ Compile Enviorment:
   1. windows 10 && Gcc 4.8 (ensure OK! But have some warnings.)
   2. Apple macOS 14.1 && clang (sorry, have a little error, you can solve by yourself.)
 
-### 5. Joke
+### 5. Helps
 
-I am actually a easygoing & active boy~! If will, Follow me~~~!
+If you have any question, please pull up some issues and requests.
